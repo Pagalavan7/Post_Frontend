@@ -1,0 +1,12 @@
+.navbar {
+  background-color: #0d7c66;
+}
+.active {
+  background-color: #41b3a2;
+  width: fit-content;
+  border-radius: 4%;
+}
+
+.nav-link {
+  padding: 0.2em 0.4em;
+}
