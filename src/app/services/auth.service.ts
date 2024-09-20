@@ -11,6 +11,7 @@ export class AuthService {
   httpClient: HttpClient = inject(HttpClient);
 
   signUp(user: User): Observable<User> {
+    console.log(user);
     return this.httpClient.post<User>(
       'http://localhost:3000/api/auth/signup',
       user

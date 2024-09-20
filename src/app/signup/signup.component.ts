@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { User } from '../Models/userSignup.model';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../Services/auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -27,7 +27,15 @@ export class SignupComponent {
   onFormSubmit() {
     console.log(this.signupForm.value);
     let data: User = this.signupForm.value;
-    this.authService.signUp(data);
+    this.authService.signUp(data).subscribe({
+      next: (data) => {
+        console.log(data);
+      },
+      complete: () => console.log('observable complete'),
+      error: (error) => {
+        console.log('error in signing up', error.error.err);
+      },
+    });
   }
   onFormReset() {
     console.log('Form reset');
