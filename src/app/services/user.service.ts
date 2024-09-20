@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { User } from '../Models/user.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -15,5 +16,13 @@ export class UserService {
   createUser(user: User) {
     this.users.push(user);
     console.log(this.users);
+  }
+
+  getAllPosts() {
+    return new Observable((sub) => {
+      setTimeout(() => {
+        sub.next('all posts');
+      }, 3000);
+    });
   }
 }

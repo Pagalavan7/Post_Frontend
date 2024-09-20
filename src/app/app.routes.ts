@@ -4,7 +4,7 @@ import { SignupComponent } from './signup/signup.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { PostsComponent } from './posts/posts.component';
 import { LoginComponent } from './login/login.component';
-import { activatePost } from './auth.guard';
+import { activatePost, resolvePost } from './auth.guard';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -15,6 +15,11 @@ export const routes: Routes = [
     canDeactivate: [(comp: SignupComponent) => comp.canDeactivate()],
   },
   { path: 'login', component: LoginComponent },
-  { path: 'posts', component: PostsComponent, canActivate: [activatePost] },
+  {
+    path: 'posts',
+    component: PostsComponent,
+    canActivate: [activatePost],
+    resolve: { data: resolvePost },
+  },
   { path: '**', component: NotFoundComponent },
 ];

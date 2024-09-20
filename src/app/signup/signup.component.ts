@@ -8,7 +8,7 @@ import {
 import { FormsModule, NgForm } from '@angular/forms';
 import { User } from '../Models/user.model';
 import { AuthService } from '../Services/auth.service';
-import { UserService } from '../Services/create-user.service';
+import { UserService } from '../Services/user.service';
 import { Router } from '@angular/router';
 
 @Component({
