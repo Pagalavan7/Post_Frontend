@@ -3,12 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../Models/user.model';
 import { UserService } from './create-user.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private userService: UserService) {}
   // httpClient: HttpClient = inject(HttpClient);
 
   // signUp(user: User): Observable<User> {
@@ -18,6 +18,7 @@ export class AuthService {
   //     user
   //   );
   // }
+  constructor(private userService: UserService, private router: Router) {}
 
   isLogged: boolean = false;
 
@@ -28,12 +29,21 @@ export class AuthService {
     const loggedUser = this.userService.users.find((x) => x.email == email)!;
     console.log(loggedUser);
     if (loggedUser == undefined) {
-      console.log('user not found');
-      this.isLogged = true;
+      alert('user not found');
     } else if (loggedUser.password == password) {
-      console.log('user login successful');
+      alert('user login successful');
+      this.isLogged = true;
+      this.router.navigate(['/posts']);
     } else {
-      console.log('Password did not match. Login failed!');
+      alert('Password did not match. Login failed!');
     }
+  }
+
+  logout() {
+    this.isLogged = false;
+  }
+
+  isAuthenticated() {
+    return this.isLogged;
   }
 }
