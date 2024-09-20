@@ -31,7 +31,7 @@ export class AuthService {
     if (loggedUser == undefined) {
       alert('user not found');
     } else if (loggedUser.password == password) {
-      alert('user login successful');
+      // alert('user login successful');
       this.isLogged = true;
       this.router.navigate(['/posts']);
     } else {

@@ -9,7 +9,11 @@ import { activatePost } from './auth.guard';
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
-  { path: 'signup', component: SignupComponent },
+  {
+    path: 'signup',
+    component: SignupComponent,
+    canDeactivate: [(comp: SignupComponent) => comp.canDeactivate()],
+  },
   { path: 'login', component: LoginComponent },
   { path: 'posts', component: PostsComponent, canActivate: [activatePost] },
   { path: '**', component: NotFoundComponent },

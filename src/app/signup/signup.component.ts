@@ -9,6 +9,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { User } from '../Models/user.model';
 import { AuthService } from '../Services/auth.service';
 import { UserService } from '../Services/create-user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -20,7 +21,8 @@ import { UserService } from '../Services/create-user.service';
 export class SignupComponent {
   constructor(
     private authService: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) {}
 
   @ViewChild('signupForm') signupForm!: NgForm;
@@ -41,8 +43,18 @@ export class SignupComponent {
     //     console.log('error in signing up', error.error.err);
     //   },
     // });
+    // this.onFormReset();
+    console.log('form sublitted');
+    this.router.navigate(['/home']);
+  }
+  canDeactivate() {
+    if ('some logic to deactivate routing.. ') {
+      return true;
+    }
+    return false;
   }
   onFormReset() {
     console.log('Form reset');
+    // this.signupForm.reset();
   }
 }
