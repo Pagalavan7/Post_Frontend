@@ -19,7 +19,7 @@ export class LoginComponent {
 
     this.authService.login(user).subscribe({
       next: (response) => {
-        console.log(response);
+        console.log(response.token);
         alert(response.message);
       },
       error: (err) => {

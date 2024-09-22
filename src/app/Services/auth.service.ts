@@ -18,7 +18,7 @@ export class AuthService {
   }
 
   login(data: User) {
-    return this.http.post<{ message: string; error: string }>(
+    return this.http.post<{ message: string; error?: string; token?: string }>(
       'http://localhost:3000/api/auth/login',
       data
     );
