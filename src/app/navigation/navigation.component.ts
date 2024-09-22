@@ -12,7 +12,6 @@ export class NavigationComponent {
   @ViewChild('navbar') navbar: ElementRef | undefined;
 
   navbarCollapse() {
-    console.log(this.navbar);
     if (this.navbar) {
       const navbarCollapse = this.navbar.nativeElement;
       if (navbarCollapse.classList.contains('show')) {
