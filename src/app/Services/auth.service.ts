@@ -16,4 +16,11 @@ export class AuthService {
       data
     );
   }
+
+  login(data: User) {
+    return this.http.post<{ message: string; error: string }>(
+      'http://localhost:3000/api/auth/login',
+      data
+    );
+  }
 }
