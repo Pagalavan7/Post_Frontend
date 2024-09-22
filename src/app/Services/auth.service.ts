@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { User } from '../Models/user.model';
-import { catchError, tap } from 'rxjs';
+import { BehaviorSubject, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -10,6 +10,8 @@ export class AuthService {
   constructor() {}
 
   http: HttpClient = inject(HttpClient);
+
+  userSignedIn$ = new BehaviorSubject<boolean>(false);
 
   signUp(data: User) {
     return this.http.post<{ message: string; error: string }>(
@@ -27,10 +29,17 @@ export class AuthService {
       .pipe(
         tap({
           next: (x) => {
-            localStorage.setItem('jwttoken', x.token!);
+            localStorage.setItem('token', x.token!);
+            this.userSignedIn$.next(true);
           },
           error: (err) => console.log('inside tap error :', err),
         })
       );
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    alert('User logged out');
+    this.userSignedIn$.next(false);
   }
 }

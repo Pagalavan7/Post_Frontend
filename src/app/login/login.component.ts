@@ -1,6 +1,7 @@
 import { Component, inject, ViewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { AuthService } from '../Services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,6 +13,7 @@ import { AuthService } from '../Services/auth.service';
 export class LoginComponent {
   @ViewChild('loginUser') loginUser!: NgForm;
   authService: AuthService = inject(AuthService);
+  router: Router = inject(Router);
 
   onSubmit() {
     console.log(this.loginUser.value);
@@ -21,6 +23,7 @@ export class LoginComponent {
       next: (response) => {
         console.log(response);
         alert(response.message);
+        this.router.navigate(['/posts']);
       },
       error: (err) => {
         console.log(err.error);

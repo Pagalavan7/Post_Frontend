@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { AuthService } from '../Services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -18,6 +19,7 @@ import { AuthService } from '../Services/auth.service';
 export class SignupComponent {
   @ViewChild('signupForm') signupForm!: NgForm;
   authService: AuthService = inject(AuthService);
+  router: Router = inject(Router);
 
   onSubmit() {
     console.log(this.signupForm.value);
@@ -26,6 +28,7 @@ export class SignupComponent {
       next: (response) => {
         console.log(response);
         alert(response.message);
+        this.router.navigate(['/login']);
       },
       error: (err) => {
         console.log(err.error);
