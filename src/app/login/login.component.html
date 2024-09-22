@@ -1,32 +1,24 @@
-<form #loginForm="ngForm">
-  <div class="form-field name">
-    <label for="name">UserName</label>
-    <input
-      type="text"
-      id="name"
-      name="name"
-      placeholder="Enter your full name"
-      required
-      ngModel
-    />
-  </div>
-  <div class="form-field email">
-    <label for="email">Email</label>
-    <input
-      type="email"
-      id="email"
-      name="email"
-      placeholder="Enter your email"
-      required
-      ngModel
-    />
-  </div>
-  <div class="form-field password">
-    <label for="password">Password</label>
-    <input type="password" name="password" required id="password" ngModel />
-  </div>
-  <button (click)="onFormSubmit()" type="submit" [disabled]="!loginForm.valid">
-    Submit
-  </button>
-  <button (click)="onFormReset()" type="reset">Reset</button>
-</form>
+<div class="user-form">
+  <form #loginUser="ngForm">
+    <div>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" ngModel required />
+    </div>
+
+    <div>
+      <label for="password">Password:</label>
+      <input type="password" id="password" ngModel name="password" required />
+    </div>
+
+    <button
+      class="mb-2"
+      [disabled]="loginUser.invalid"
+      (click)="onSubmit()"
+      type="submit"
+    >
+      Login
+    </button>
+
+    <button (click)="resetForm()">Reset Credentials</button>
+  </form>
+</div>

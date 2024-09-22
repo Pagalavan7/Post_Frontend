@@ -4,14 +4,8 @@
 //   password: string;
 // }
 
-export class User {
-  userName: string = '';
-  email: string = '';
-  password: string = '';
-  constructor(name: string, email: string, password: string) {
-    this.userName = name;
-    this.email = email;
-    this.password = password;
-  }
+export interface User {
+  userName: string;
+  email: string;
+  password: string;
 }
-const Users: User[] = [];
