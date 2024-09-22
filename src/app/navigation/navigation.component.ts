@@ -1,5 +1,5 @@
 import { Component, ElementRef, inject, ViewChild } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../Services/auth.service';
 import { CommonModule } from '@angular/common';
 
@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 })
 export class NavigationComponent {
   authService: AuthService = inject(AuthService);
+  router: Router = inject(Router);
 
   @ViewChild('navbar') navbar: ElementRef | undefined;
   isUserSignedIn: boolean = false;
@@ -27,7 +28,10 @@ export class NavigationComponent {
 
   onLogout() {
     const res = confirm('You really want to logout?');
-    if (res) this.authService.logout();
+    if (res) {
+      this.authService.logout();
+      this.router.navigate(['/login']);
+    }
   }
 
   navbarCollapse() {
