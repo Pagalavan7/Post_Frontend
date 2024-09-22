@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { Post } from '../Models/post.model';
 import { HttpClient } from '@angular/common/http';
 import { map, tap } from 'rxjs';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -9,6 +10,7 @@ import { map, tap } from 'rxjs';
 export class PostsService {
   constructor() {}
 
+  authService: AuthService = inject(AuthService);
   http: HttpClient = inject(HttpClient);
 
   postsAPI = 'http://localhost:3000/api/posts/';
@@ -19,6 +21,7 @@ export class PostsService {
     return this.http.delete(`${this.postsAPI}delete-all-posts`);
   }
   deletePost(id: number) {
+    this.authService.logout();
     return this.http.delete(`${this.postsAPI}delete-post/${id}`);
   }
   post(data: any) {

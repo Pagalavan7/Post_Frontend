@@ -29,7 +29,7 @@ export class LoginComponent {
         console.log(err.error);
         alert(err.error.error);
       },
-      complete: () => console.log('signup operation complete'),
+      complete: () => console.log('login operation complete'),
     });
   }
 
