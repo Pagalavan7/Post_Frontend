@@ -1,11 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { PostsService } from '../Services/posts.service';
 import { Post } from '../Models/post.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-posts',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './posts.component.html',
   styleUrl: './posts.component.css',
 })

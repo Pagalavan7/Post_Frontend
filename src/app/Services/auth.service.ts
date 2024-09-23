@@ -49,7 +49,7 @@ export class AuthService {
   }
 
   isTokenExpired(): boolean {
-    console.log('im called');
+    console.log('checking for token expiration');
     try {
       const token = localStorage.getItem('token');
       if (!token) {
