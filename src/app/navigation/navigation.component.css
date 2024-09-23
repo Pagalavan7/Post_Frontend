@@ -4,7 +4,7 @@
   margin: 0;
 }
 
-.navbar {
+.navigationbar {
   background-color: #001f3f;
   color: white;
   padding: 0.5em 0;
@@ -17,14 +17,14 @@
   display: flex;
 }
 
-.row {
+.rows {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
 }
 
-.navbar .logo {
+.navigationbar .logo {
   font-family: "Kanit", sans-serif;
   color: #ead8b1;
   font-size: 2.5rem;

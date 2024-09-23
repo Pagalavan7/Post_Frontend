@@ -8,7 +8,11 @@ import { jwtDecode } from 'jwt-decode';
   providedIn: 'root',
 })
 export class AuthService {
-  constructor() {}
+  constructor() {
+    if (!this.isTokenExpired()) {
+      this.userSignedIn$.next(true);
+    }
+  }
 
   http: HttpClient = inject(HttpClient);
 

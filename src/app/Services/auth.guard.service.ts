@@ -9,7 +9,7 @@ export const AuthGuard = () => {
   const tokenExpired = authService.isTokenExpired();
   return authService.userSignedIn$.pipe(
     tap((loggedIn) => {
-      if (!loggedIn || tokenExpired) {
+      if (!loggedIn) {
         router.navigate(['/login']).then(() => alert('Login to continue..'));
       }
     })
