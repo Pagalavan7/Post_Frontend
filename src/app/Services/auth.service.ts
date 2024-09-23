@@ -45,18 +45,31 @@ export class AuthService {
   }
 
   isTokenExpired(): boolean {
-    const token = localStorage.getItem('token');
-
-    if (!token) {
+    console.log('im called');
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        this.logout();
+        return true;
+      }
+      const payload = jwtDecode(token);
+      console.log(payload);
+      if (!payload.exp) {
+        this.logout();
+        return true;
+      }
+      const currentTime = Math.floor(Date.now() / 1000);
+      console.log(currentTime);
+      if (payload.exp < currentTime) {
+        console.log('payload expired', payload);
+        this.logout();
+        return true;
+      }
+      return false;
+    } catch (err) {
+      this.logout();
+      console.log(err);
       return true;
     }
-    const payload = jwtDecode(token);
-    if (!payload.exp) {
-      return true;
-    }
-
-    const currentTime = Math.floor(Date.now() / 1000);
-
-    return payload.exp < currentTime;
   }
 }
