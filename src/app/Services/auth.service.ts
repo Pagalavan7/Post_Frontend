@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { User } from '../Models/user.model';
 import { BehaviorSubject, tap } from 'rxjs';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root',
@@ -41,5 +42,21 @@ export class AuthService {
     localStorage.removeItem('token');
     alert('User logged out');
     this.userSignedIn$.next(false);
+  }
+
+  isTokenExpired(): boolean {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      return true;
+    }
+    const payload = jwtDecode(token);
+    if (!payload.exp) {
+      return true;
+    }
+
+    const currentTime = Math.floor(Date.now() / 1000);
+
+    return payload.exp < currentTime;
   }
 }

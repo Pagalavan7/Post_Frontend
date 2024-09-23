@@ -10,12 +10,7 @@
       <input type="password" id="password" ngModel name="password" required />
     </div>
 
-    <button
-      class="mb-2"
-      [disabled]="loginUser.invalid"
-      (click)="onSubmit()"
-      type="submit"
-    >
+    <button [disabled]="loginUser.invalid" (click)="onSubmit()" type="submit">
       Login
     </button>
 

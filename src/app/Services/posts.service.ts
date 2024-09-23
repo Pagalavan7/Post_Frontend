@@ -21,7 +21,6 @@ export class PostsService {
     return this.http.delete(`${this.postsAPI}delete-all-posts`);
   }
   deletePost(id: number) {
-    this.authService.logout();
     return this.http.delete(`${this.postsAPI}delete-post/${id}`);
   }
   post(data: any) {
