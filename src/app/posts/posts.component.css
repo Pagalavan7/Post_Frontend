@@ -1,8 +1,43 @@
 .card-header {
   background-color: #3a6d8c;
-
   color: #ead8b1;
   font-size: 1.75rem;
   font-family: "Lato", sans-serif;
   font-weight: 900;
 }
+
+.edit,
+.create-post a {
+  text-decoration: none;
+  color: #ead8b1;
+}
+
+.edit,
+.create-post {
+  background-color: #001f3f;
+}
+
+.edit:hover,
+.create-post:hover {
+  background-color: #1b3849;
+}
+
+/* .create-post a {
+  text-decoration: none;
+  color: #ead8b1;
+} */
+/* .create-post .btn {
+  background-color: #001f3f;
+} */
+
+/* .create-post .btn:hover {
+  background-color: #133657;
+} */
+
+/* .create-post .btn:focus {
+  background-color: #3a6d8c;
+  color: red;
+}
+.create-post .btn:focus-visible {
+  color: yellow;
+} */

@@ -1,7 +1,6 @@
-export interface Post{
-  id?:number;
-  title:string,
-  userName:string;
-  body:string;
-  createdOn:string;
+export interface Post {
+  id?: number;
+  title: string;
+  body: string;
+  createdOn: string;
 }

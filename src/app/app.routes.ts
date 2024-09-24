@@ -5,6 +5,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { PostsComponent } from './posts/posts.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './Services/auth.guard.service';
+import { CreatePostComponent } from './create-post/create-post.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -15,6 +16,10 @@ export const routes: Routes = [
     path: 'posts',
     component: PostsComponent,
     canActivate: [AuthGuard],
+  },
+  {
+    path: 'create-post',
+    component: CreatePostComponent,
   },
   { path: '**', component: NotFoundComponent },
 ];
