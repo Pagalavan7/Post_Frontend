@@ -8,6 +8,8 @@ import { jwtDecode } from 'jwt-decode';
   providedIn: 'root',
 })
 export class AuthService {
+  loggedUserName: string | undefined;
+
   constructor() {
     if (!this.isTokenExpired()) {
       this.userSignedIn$.next(true);
@@ -15,7 +17,6 @@ export class AuthService {
   }
 
   http: HttpClient = inject(HttpClient);
-
   userSignedIn$ = new BehaviorSubject<boolean>(false);
 
   signUp(data: User) {
@@ -37,35 +38,33 @@ export class AuthService {
             localStorage.setItem('token', x.token!);
             this.userSignedIn$.next(true);
           },
-          error: (err) => console.log('inside tap error :', err),
+          // error: (err) => console.log('inside tap error :', err),
         })
       );
   }
 
   logout() {
     localStorage.removeItem('token');
-    alert('User logged out');
     this.userSignedIn$.next(false);
   }
 
   isTokenExpired(): boolean {
-    console.log('checking for token expiration');
     try {
       const token = localStorage.getItem('token');
       if (!token) {
         this.logout();
         return true;
       }
-      const payload = jwtDecode(token);
-      console.log(payload);
+      const payload: any = jwtDecode(token);
+      this.loggedUserName = payload.userName;
+
       if (!payload.exp) {
         this.logout();
         return true;
       }
       const currentTime = Math.floor(Date.now() / 1000);
-      console.log(currentTime);
+
       if (payload.exp < currentTime) {
-        console.log('payload expired', payload);
         this.logout();
         return true;
       }

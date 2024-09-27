@@ -14,7 +14,7 @@
         </li>
         <li class="nav-item">
           <a
-            routerLink="posts"
+            routerLink="/posts"
             routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }"
             class="nav-link"
@@ -44,7 +44,7 @@
         <li
           *ngIf="isUserSignedIn; else onlogin"
           (click)="onLogout()"
-          class="nav-item nav-link"
+          class="nav-item nav-link logout"
         >
           Logout
         </li>

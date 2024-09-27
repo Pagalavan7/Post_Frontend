@@ -1,41 +1,29 @@
 <div class="container">
   <div class="d-flex justify-content-end mb-3">
     <button class="create-post btn">
-      <a routerLink="/create-post">Post</a>
+      <a routerLink="/create-post">New Post</a>
     </button>
   </div>
-  <div class="card mb-3" *ngFor="let post of posts">
-    <div>{{ posts.length }}</div>
-    <div class="card-header post-title text-center py-3">Featured</div>
+  <div class="card mb-4" *ngFor="let post of posts">
+    <div class="card-header post-title text-center py-2">{{ post.title }}</div>
     <div class="card-body post-body">
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis,
-        molestias. Porro assumenda inventore est corporis similique qui,
-        nesciunt dolorum eveniet. Et consequatur iure beatae adipisci. Lorem
-        ipsum dolor sit amet consectetur, adipisicing elit. Suscipit obcaecati
-        repellat ipsa, dolores natus quod error officia dicta itaque quis ab,
-        atque recusandae libero reiciendis temporibus ut debitis laboriosam
-        consequatur cum sunt facilis velit quidem alias minus. Qui quas
-        similique veritatis nemo, reprehenderit delectus odio cupiditate,
-        dolorum esse libero obcaecati suscipit mollitia tempore nostrum
-        repellendus? Dolor, quos perferendis, magnam tempora temporibus iure
-        fugit neque suscipit sunt quibusdam doloremque sint accusamus sed.
-        Tenetur repellat libero veniam eum iure neque, veritatis corporis est
-        quas iusto consectetur ipsa, ratione dolorem cumque maxime dicta
-        doloremque, dolorum natus autem nam laboriosam alias eligendi!
-        Doloremque, tempore ipsa aperiam et dicta nam accusamus quae voluptatum
-        dolorum nobis mollitia optio iusto perferendis quasi delectus inventore
-        explicabo deleniti quidem in ab quo aut. Sunt quaerat eum commodi
-        exercitationem voluptatum distinctio facilis quis rerum eaque accusamus,
-        neque nisi ad officia culpa necessitatibus consectetur earum soluta
-        eligendi, nulla amet ea assumenda.
+        {{ post.body }}
       </p>
     </div>
     <div class="card-footer d-flex justify-content-between align-items-center">
-      <div>31st September 2024</div>
+      <div class="post-info">
+        <span>{{ post.userName }}</span>
+        <span> on {{ post.createdOn }}</span>
+      </div>
+
       <div>
-        <!-- <button class="edit btn me-2">Edit</button> -->
-        <button class="btn btn-danger">Delete</button>
+        <button *ngIf="loggedUserName == post.userName" class="edit btn me-2">
+          Edit
+        </button>
+        <button class="btn btn-danger" (click)="onDeletePost(post.id!)">
+          Delete
+        </button>
       </div>
     </div>
   </div>

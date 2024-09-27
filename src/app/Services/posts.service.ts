@@ -3,6 +3,7 @@ import {
   EventEmitter,
   inject,
   Injectable,
+  Output,
 } from '@angular/core';
 import { Post } from '../Models/post.model';
 import { HttpClient } from '@angular/common/http';
@@ -15,21 +16,25 @@ import { AuthService } from './auth.service';
 export class PostsService {
   constructor() {}
 
-  // sendPost$ = new Subject<Post>();
+  posts: Post[] = [];
 
   authService: AuthService = inject(AuthService);
   http: HttpClient = inject(HttpClient);
-  private postsSubject = new BehaviorSubject<Post[]>([]); // Start with an empty array
-  sendPost$ = this.postsSubject.asObservable();
+  // private postsSubject = new BehaviorSubject<Post[]>([]); // Start with an empty array
+  // sendPost$ = this.postsSubject.asObservable();
 
-  // event: EventEmitter<Post> = new EventEmitter<Post>();
+  // @Output() event: EventEmitter<Post> = new EventEmitter<Post>();
 
   postsAPI = 'http://localhost:3000/api/posts/';
 
-  createPost(postData: Post) {
-    console.log(postData);
-    this.postsSubject.next([postData]);
-  }
+  // createPost(postData: Post) {
+  //   this.posts.push(postData);
+  //   console.log(
+  //     'in post service. sending the below data to post comp..,',
+  //     this.posts
+  //   );
+  //   this.event.emit(postData);
+  // }
 
   getAllPosts() {
     return this.http.get<Post[]>(`${this.postsAPI}get-all-posts`);

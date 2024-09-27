@@ -53,3 +53,7 @@
   background-color: #ead8b1;
   border-radius: 5px;
 }
+
+.logout:hover {
+  cursor: pointer;
+}

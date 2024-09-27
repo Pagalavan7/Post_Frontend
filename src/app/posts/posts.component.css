@@ -22,22 +22,15 @@
   background-color: #1b3849;
 }
 
-/* .create-post a {
-  text-decoration: none;
-  color: #ead8b1;
-} */
-/* .create-post .btn {
-  background-color: #001f3f;
-} */
-
-/* .create-post .btn:hover {
-  background-color: #133657;
-} */
-
-/* .create-post .btn:focus {
-  background-color: #3a6d8c;
-  color: red;
+p {
+  text-align: justify;
+  margin: 0;
 }
-.create-post .btn:focus-visible {
-  color: yellow;
-} */
+
+.post-info {
+  font-weight: bold;
+  background-color: #ead8b1;
+  color: #001f3f;
+  border-radius: 4px;
+  padding: 0.5em;
+}

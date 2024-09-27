@@ -16,20 +16,17 @@ export class LoginComponent {
   router: Router = inject(Router);
 
   onSubmit() {
-    console.log(this.loginUser.value);
     const user = this.loginUser.value;
 
     this.authService.login(user).subscribe({
       next: (response) => {
-        console.log(response);
         alert(response.message);
         this.router.navigate(['/posts']);
       },
       error: (err) => {
-        console.log(err.error);
         alert(err.error.error);
       },
-      complete: () => console.log('login operation complete'),
+      // complete: () => console.log('login operation complete'),
     });
   }
 

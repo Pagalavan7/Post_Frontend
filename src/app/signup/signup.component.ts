@@ -22,11 +22,9 @@ export class SignupComponent {
   router: Router = inject(Router);
 
   onSubmit() {
-    console.log(this.signupForm.value);
     const user = this.signupForm.value;
     this.authService.signUp(user).subscribe({
       next: (response) => {
-        console.log(response);
         alert(response.message);
         this.router.navigate(['/login']);
       },

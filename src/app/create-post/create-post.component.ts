@@ -1,6 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { PostsService } from '../Services/posts.service';
+import { Router } from '@angular/router';
+import { Post } from '../Models/post.model';
 
 @Component({
   selector: 'app-create-post',
@@ -11,7 +13,7 @@ import { PostsService } from '../Services/posts.service';
 })
 export class CreatePostComponent {
   @ViewChild('postForm') postForm!: NgForm;
-  constructor(private postService: PostsService) {}
+  constructor(private postService: PostsService, private router: Router) {}
 
   onSubmit() {
     const now = new Date();
@@ -23,8 +25,22 @@ export class CreatePostComponent {
 
     // Format the date as DD/MM/YYYY
     const createdOn = `${day}/${month}/${year}`;
-    let postData = this.postForm.value;
+    let postData: Post = this.postForm.value;
     postData = { ...postData, createdOn: createdOn };
-    this.postService.createPost(postData);
+
+    this.post(postData);
+    this.router.navigate(['/posts']);
+  }
+
+  post(data: Post) {
+    this.postService.post(data).subscribe({
+      next: (data) => {
+        console.log(data);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+      complete: () => console.log('post data complete'),
+    });
   }
 }

@@ -13,7 +13,6 @@ export const AuthInterceptorService: HttpInterceptorFn = (
   next: HttpHandlerFn
 ) => {
   const authService = inject(AuthService);
-  console.log('interceptor method called');
   const authToken = localStorage.getItem('token');
   const router = inject(Router);
   if (authToken && authService.isTokenExpired()) {

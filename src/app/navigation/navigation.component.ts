@@ -19,10 +19,6 @@ export class NavigationComponent {
   ngOnInit() {
     this.authService.userSignedIn$.subscribe((x) => {
       this.isUserSignedIn = x;
-      console.log(
-        'whether user signed in inside navbar: ',
-        this.isUserSignedIn
-      );
     });
   }
 
