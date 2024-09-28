@@ -39,6 +39,18 @@ export class PostsService {
   getAllPosts() {
     return this.http.get<Post[]>(`${this.postsAPI}get-all-posts`);
   }
+  getPostById(postId: number) {
+    return this.http.get<Post>(`${this.postsAPI}get-post/${postId}`);
+  }
+
+  editPost(patchData: Post) {
+    console.log('edit post service called..');
+    console.log('Patch data', patchData);
+    return this.http.patch(
+      `${this.postsAPI}edit-post/${patchData.id!}`,
+      patchData
+    );
+  }
   deleteAllPosts() {
     return this.http.delete(`${this.postsAPI}delete-all-posts`);
   }

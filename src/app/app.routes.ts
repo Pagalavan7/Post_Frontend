@@ -21,5 +21,10 @@ export const routes: Routes = [
     path: 'create-post',
     component: CreatePostComponent,
   },
+  {
+    path: 'edit-post/:id',
+    component: CreatePostComponent,
+  },
+
   { path: '**', component: NotFoundComponent },
 ];

@@ -37,34 +37,23 @@ export class PostsComponent {
   }
 
   ngOnInit() {
-    console.log('ngOninit called');
     this.getAllPosts();
   }
 
   getAllPosts() {
-    console.log('im called');
     this.postService.getAllPosts().subscribe({
       next: (data) => {
-        console.log('data from backend', data);
         this.posts = [];
         data.forEach((post) => {
           this.posts.push(post);
         });
-        console.log(this.posts, 'is the value of posts');
+        console.log(data);
       },
       error: (err) => {
         console.log(err);
       },
       complete: () => this.cdr.detectChanges(),
     });
-  }
-  ngAfterViewInit() {
-    console.log('ng after view init called');
-    console.log(this.posts.length);
-  }
-  ngDoCheck() {
-    console.log('ng do check called');
-    console.log(this.posts.length);
   }
 
   onDeletePost(id: number) {
@@ -91,5 +80,9 @@ export class PostsComponent {
       },
       complete: () => console.log('delete all posts complete'),
     });
+  }
+
+  onEditPost(postId: number) {
+    this.router.navigate(['/edit-post', postId]);
   }
 }

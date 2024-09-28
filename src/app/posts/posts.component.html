@@ -18,7 +18,11 @@
       </div>
 
       <div>
-        <button *ngIf="loggedUserName == post.userName" class="edit btn me-2">
+        <button
+          *ngIf="loggedUserName == post.userName"
+          class="edit btn me-2"
+          (click)="onEditPost(post.id!)"
+        >
           Edit
         </button>
         <button class="btn btn-danger" (click)="onDeletePost(post.id!)">

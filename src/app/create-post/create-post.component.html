@@ -8,14 +8,14 @@
       placeholder="Title here"
       required
       name="title"
-      ngModel
+      [(ngModel)]="title"
       minlength="5"
     />
   </div>
   <div class="mb-3">
     <label for="body" class="form-label">Share what you think</label>
     <textarea
-      ngModel
+      [(ngModel)]="body"
       name="body"
       class="form-control"
       id="body"
@@ -25,12 +25,24 @@
 
   <div class="d-grid gap-2">
     <button
+      *ngIf="!isEditMode; else save"
       class="btn create-post"
       [disabled]="postForm.invalid"
       type="submit"
-      (click)="onSubmit()"
+      (click)="onCreate()"
     >
       Create Post
     </button>
+
+    <ng-template #save>
+      <button
+        class="btn create-post"
+        [disabled]="postForm.invalid"
+        type="submit"
+        (click)="onSave()"
+      >
+        Save Post
+      </button>
+    </ng-template>
   </div>
 </form>
