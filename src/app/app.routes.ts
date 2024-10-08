@@ -6,6 +6,7 @@ import { PostsComponent } from './posts/posts.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './Services/auth.guard.service';
 import { CreatePostComponent } from './create-post/create-post.component';
+import { MyProfileComponent } from './my-profile/my-profile.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -26,5 +27,6 @@ export const routes: Routes = [
     component: CreatePostComponent,
   },
 
+  { path: 'my-posts', component: PostsComponent },
   { path: '**', component: NotFoundComponent },
 ];

@@ -3,6 +3,10 @@
   padding: 0;
   margin: 0;
 }
+a {
+  text-decoration: none;
+  color: black;
+}
 
 .navigationbar {
   background-color: #001f3f;
@@ -16,10 +20,9 @@
   display: flex;
 }
 .container {
-  width: 90%;
-  margin: 0 auto;
-  max-width: 1200px;
+  margin: auto;
   display: flex;
+  position: relative;
 }
 
 .rows {
@@ -39,6 +42,9 @@
   height: auto;
   margin-left: 1.25em;
   border-radius: 50%;
+}
+.profile:hover {
+  cursor: pointer;
 }
 .nav-list {
   list-style: none;
@@ -66,4 +72,42 @@
 
 .logout:hover {
   cursor: pointer;
+}
+.profile_details {
+  position: absolute;
+  top: 78px;
+  right: 2px;
+  width: 300px;
+  background-color: #001f3f;
+  border-radius: 5px;
+  padding: 1.5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user_details {
+  align-self: flex-start;
+  font-size: 1rem;
+}
+.user_details_item + .user_details_item {
+  margin-top: 0.5em;
+}
+.profile_pic {
+  border-radius: 50%;
+  height: 170px;
+  width: 170px;
+}
+
+.user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  margin-bottom: 1.5em;
+}
+
+button {
+  padding: 0.25em 0.35em;
 }

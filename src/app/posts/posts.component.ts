@@ -26,6 +26,7 @@ import { AuthService } from '../Services/auth.service';
 export class PostsComponent {
   posts: Post[] = [];
   loggedUserName: string | undefined;
+  myPostFilter = false;
   constructor(
     private cdr: ChangeDetectorRef,
     private postService: PostsService,
@@ -38,15 +39,26 @@ export class PostsComponent {
 
   ngOnInit() {
     this.getAllPosts();
+    const data = this.route.snapshot.url.map((x) => x.path);
+    if (data[0].includes('my-posts')) {
+      console.log(data[0], 'came inside if block');
+      this.myPostFilter = true;
+    }
   }
 
   getAllPosts() {
     this.postService.getAllPosts().subscribe({
       next: (data) => {
         this.posts = [];
-        data.forEach((post) => {
-          this.posts.push(post);
-        });
+        if (!this.myPostFilter) {
+          data.forEach((post) => {
+            this.posts.push(post);
+          });
+        } else {
+          data
+            .filter((x) => x.userName == this.loggedUserName)
+            .forEach((x) => this.posts.push(x));
+        }
         console.log(data);
       },
       error: (err) => {

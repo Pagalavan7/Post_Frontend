@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './navigation.component.css',
 })
 export class NavigationComponent {
+  showProfile = false;
   authService: AuthService = inject(AuthService);
   router: Router = inject(Router);
 
@@ -28,6 +29,14 @@ export class NavigationComponent {
       this.authService.logout();
       this.router.navigate(['/login']);
     }
+  }
+
+  onProfile() {
+    this.showProfile = !this.showProfile;
+  }
+
+  showMyPosts() {
+    this.showProfile = !this.showProfile;
   }
 
   navbarCollapse() {

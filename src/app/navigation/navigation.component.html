@@ -51,7 +51,11 @@
         <li>
           <div class="profile">
             <div class="logged_in" *ngIf="isUserSignedIn; else logout">
-              <img src="/assets/icons/logged-profile.png" alt="logged_in" />
+              <img
+                (click)="onProfile()"
+                src="/assets/icons/logged-profile.png"
+                alt="logged_in"
+              />
             </div>
             <ng-template #logout
               ><div class="logged_out">
@@ -63,6 +67,29 @@
           </div>
         </li>
       </ul>
+    </div>
+
+    <!-- code to profile details.. -->
+
+    <div *ngIf="showProfile" class="profile_details">
+      <div class="user">
+        <div>
+          <img
+            class="profile_pic"
+            src="/assets/icons/logged-profile.png"
+            alt="profile picture"
+          />
+        </div>
+
+        <h6>username4123</h6>
+      </div>
+      <div class="user_details">
+        <div class="user_details_item"><b>Email:</b> emailgmail.com</div>
+        <div class="user_details_item"><b>Total Posts:</b> no of posts</div>
+        <button class="user_details_item btn btn-info">
+          <a routerLink="my-posts" (click)="showMyPosts()">My Posts</a>
+        </button>
+      </div>
     </div>
   </div>
 </div>
