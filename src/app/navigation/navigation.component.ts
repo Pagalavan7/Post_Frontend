@@ -1,7 +1,15 @@
-import { Component, ElementRef, inject, ViewChild } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  inject,
+  ViewChild,
+} from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../Services/auth.service';
 import { CommonModule } from '@angular/common';
+import { PostsService } from '../Services/posts.service';
+import { LoggedInUserData } from '../Models/user.model';
 
 @Component({
   selector: 'app-navigation',
@@ -12,14 +20,40 @@ import { CommonModule } from '@angular/common';
 })
 export class NavigationComponent {
   showProfile = false;
+  userName: string | undefined;
+  userEmail: string | undefined;
+  noOfPosts = 0;
   authService: AuthService = inject(AuthService);
   router: Router = inject(Router);
+  postService: PostsService = inject(PostsService);
+  cdr: ChangeDetectorRef = inject(ChangeDetectorRef);
 
   @ViewChild('navbar') navbar: ElementRef | undefined;
   isUserSignedIn: boolean = false;
+
+  constructor() {
+    console.log('navigation component called');
+  }
+
   ngOnInit() {
     this.authService.userSignedIn$.subscribe((x) => {
       this.isUserSignedIn = x;
+      this.showProfile = false;
+    });
+    this.authService.$loggedInUser.subscribe({
+      next: (x: LoggedInUserData | null) => {
+        console.log(
+          'inside nav component.. value received from auth service is',
+          x
+        );
+        this.userName = x?.loggedInUserName;
+        this.userEmail = x?.loggedInUserEmail;
+      },
+    });
+
+    this.postService.$postCount.subscribe((x) => {
+      console.log('inside nav comp.. count is ', x);
+      this.noOfPosts = x;
     });
   }
 

@@ -14,16 +14,20 @@ import { AuthService } from './auth.service';
   providedIn: 'root',
 })
 export class PostsService {
-  constructor() {}
+  constructor() {
+    console.log('post service called..');
+  }
 
   posts: Post[] = [];
+  totalPosts: number | undefined;
+  userPosts: number | undefined;
 
   authService: AuthService = inject(AuthService);
   http: HttpClient = inject(HttpClient);
   // private postsSubject = new BehaviorSubject<Post[]>([]); // Start with an empty array
   // sendPost$ = this.postsSubject.asObservable();
 
-  // @Output() event: EventEmitter<Post> = new EventEmitter<Post>();
+  $postCount = new BehaviorSubject<number>(0);
 
   postsAPI = 'http://localhost:3000/api/posts/';
 
@@ -35,6 +39,10 @@ export class PostsService {
   //   );
   //   this.event.emit(postData);
   // }
+  updatePostCount(count: number) {
+    console.log('value received from component is ...', count);
+    this.$postCount.next(count);
+  }
 
   getAllPosts() {
     return this.http.get<Post[]>(`${this.postsAPI}get-all-posts`);

@@ -27,6 +27,6 @@ export const routes: Routes = [
     component: CreatePostComponent,
   },
 
-  { path: 'my-posts', component: PostsComponent },
+  { path: 'my-posts', component: PostsComponent, canActivate: [AuthGuard] },
   { path: '**', component: NotFoundComponent },
 ];

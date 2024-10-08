@@ -109,5 +109,6 @@ a {
 }
 
 button {
+  margin-top: 0.5em;
   padding: 0.25em 0.35em;
 }

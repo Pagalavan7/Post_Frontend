@@ -1,18 +1,22 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { User } from '../Models/user.model';
-import { BehaviorSubject, tap } from 'rxjs';
+import { LoggedInUserData, User } from '../Models/user.model';
+import { BehaviorSubject, ReplaySubject, Subject, tap } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  loggedUserName: string | undefined;
+  loggedInUser: LoggedInUserData | null = null;
+
+  $loggedInUser = new ReplaySubject<LoggedInUserData | null>(1);
 
   constructor() {
+    console.log('auth service called');
     if (!this.isTokenExpired()) {
       this.userSignedIn$.next(true);
+      this.$loggedInUser.next(this.loggedInUser);
     }
   }
 
@@ -44,8 +48,9 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.removeItem('token');
+    localStorage.clear();
     this.userSignedIn$.next(false);
+    this.$loggedInUser.next(null);
   }
 
   isTokenExpired(): boolean {
@@ -56,7 +61,11 @@ export class AuthService {
         return true;
       }
       const payload: any = jwtDecode(token);
-      this.loggedUserName = payload.userName;
+
+      this.loggedInUser = {
+        loggedInUserName: payload.userName,
+        loggedInUserEmail: payload.email,
+      };
 
       if (!payload.exp) {
         this.logout();

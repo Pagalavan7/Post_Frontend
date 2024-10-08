@@ -14,6 +14,7 @@ import {
   RouterLinkActive,
 } from '@angular/router';
 import { AuthService } from '../Services/auth.service';
+import { LoggedInUserData } from '../Models/user.model';
 
 @Component({
   selector: 'app-posts',
@@ -26,7 +27,9 @@ import { AuthService } from '../Services/auth.service';
 export class PostsComponent {
   posts: Post[] = [];
   loggedUserName: string | undefined;
+  totalPosts: number = 0;
   myPostFilter = false;
+
   constructor(
     private cdr: ChangeDetectorRef,
     private postService: PostsService,
@@ -34,16 +37,21 @@ export class PostsComponent {
     private route: ActivatedRoute,
     private router: Router
   ) {
-    this.loggedUserName = this.authService.loggedUserName;
+    this.authService.$loggedInUser.subscribe({
+      next: (userLoggedInData: LoggedInUserData | null) => {
+        console.log(userLoggedInData);
+        this.loggedUserName = userLoggedInData?.loggedInUserName;
+      },
+    });
+    console.log('posts component called..');
   }
 
   ngOnInit() {
-    this.getAllPosts();
     const data = this.route.snapshot.url.map((x) => x.path);
     if (data[0].includes('my-posts')) {
-      console.log(data[0], 'came inside if block');
       this.myPostFilter = true;
     }
+    this.getAllPosts();
   }
 
   getAllPosts() {
@@ -54,12 +62,16 @@ export class PostsComponent {
           data.forEach((post) => {
             this.posts.push(post);
           });
+          this.postService.updatePostCount(this.posts.length);
+          console.log(this.posts, 'is the total posts ');
         } else {
           data
             .filter((x) => x.userName == this.loggedUserName)
             .forEach((x) => this.posts.push(x));
+          console.log('hi im pagal', this.posts.length);
+          this.postService.updatePostCount(this.posts.length);
+          console.log(this.posts, 'is the total posts ');
         }
-        console.log(data);
       },
       error: (err) => {
         console.log(err);

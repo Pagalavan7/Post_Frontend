@@ -81,11 +81,11 @@
           />
         </div>
 
-        <h6>username4123</h6>
+        <h6>{{ userName }}</h6>
       </div>
       <div class="user_details">
-        <div class="user_details_item"><b>Email:</b> emailgmail.com</div>
-        <div class="user_details_item"><b>Total Posts:</b> no of posts</div>
+        <div class="user_details_item"><b>Email:</b> {{ userEmail }}</div>
+        <div class="user_details_item"><b>Total Posts: </b>{{ noOfPosts }}</div>
         <button class="user_details_item btn btn-info">
           <a routerLink="my-posts" (click)="showMyPosts()">My Posts</a>
         </button>
