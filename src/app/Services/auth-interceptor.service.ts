@@ -12,6 +12,7 @@ export const AuthInterceptorService: HttpInterceptorFn = (
   req: HttpRequest<any>,
   next: HttpHandlerFn
 ) => {
+  console.log('interceptor called..');
   const authService = inject(AuthService);
   const authToken = localStorage.getItem('token');
   const router = inject(Router);

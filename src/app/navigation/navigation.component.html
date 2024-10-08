@@ -48,6 +48,20 @@
         >
           Logout
         </li>
+        <li>
+          <div class="profile">
+            <div class="logged_in" *ngIf="isUserSignedIn; else logout">
+              <img src="/assets/icons/logged-profile.png" alt="logged_in" />
+            </div>
+            <ng-template #logout
+              ><div class="logged_out">
+                <img
+                  src="/assets/icons/logout-profile.jpg"
+                  alt="logged_out"
+                /></div
+            ></ng-template>
+          </div>
+        </li>
       </ul>
     </div>
   </div>
