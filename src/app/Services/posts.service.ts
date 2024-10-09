@@ -19,6 +19,7 @@ export class PostsService {
   }
 
   posts: Post[] = [];
+
   totalPosts: number | undefined;
   userPosts: number | undefined;
 
@@ -39,10 +40,6 @@ export class PostsService {
   //   );
   //   this.event.emit(postData);
   // }
-  updatePostCount(count: number) {
-    console.log('value received from component is ...', count);
-    this.$postCount.next(count);
-  }
 
   getAllPosts() {
     return this.http.get<Post[]>(`${this.postsAPI}get-all-posts`);

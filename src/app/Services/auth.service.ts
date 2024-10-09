@@ -41,6 +41,8 @@ export class AuthService {
           next: (x) => {
             localStorage.setItem('token', x.token!);
             this.userSignedIn$.next(true);
+            this.isTokenExpired();
+            this.$loggedInUser.next(this.loggedInUser);
           },
           // error: (err) => console.log('inside tap error :', err),
         })

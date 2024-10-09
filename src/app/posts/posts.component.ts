@@ -26,6 +26,7 @@ import { LoggedInUserData } from '../Models/user.model';
 })
 export class PostsComponent {
   posts: Post[] = [];
+  loggedInUserPosts: Post[] = [];
   loggedUserName: string | undefined;
   totalPosts: number = 0;
   myPostFilter = false;
@@ -37,47 +38,59 @@ export class PostsComponent {
     private route: ActivatedRoute,
     private router: Router
   ) {
+    console.log('posts component called..');
     this.authService.$loggedInUser.subscribe({
       next: (userLoggedInData: LoggedInUserData | null) => {
         console.log(userLoggedInData);
         this.loggedUserName = userLoggedInData?.loggedInUserName;
       },
     });
-    console.log('posts component called..');
   }
 
   ngOnInit() {
     const data = this.route.snapshot.url.map((x) => x.path);
+
     if (data[0].includes('my-posts')) {
+      console.log('my-posts included..');
       this.myPostFilter = true;
     }
     this.getAllPosts();
   }
 
   getAllPosts() {
+    console.log('get ll posts called..');
     this.postService.getAllPosts().subscribe({
       next: (data) => {
         this.posts = [];
-        if (!this.myPostFilter) {
-          data.forEach((post) => {
-            this.posts.push(post);
-          });
-          this.postService.updatePostCount(this.posts.length);
-          console.log(this.posts, 'is the total posts ');
-        } else {
-          data
-            .filter((x) => x.userName == this.loggedUserName)
-            .forEach((x) => this.posts.push(x));
-          console.log('hi im pagal', this.posts.length);
-          this.postService.updatePostCount(this.posts.length);
-          console.log(this.posts, 'is the total posts ');
-        }
+        data.forEach((post) => {
+          this.posts.push(post);
+        });
       },
       error: (err) => {
         console.log(err);
       },
-      complete: () => this.cdr.detectChanges(),
+      complete: () => {
+        console.log('get all posts complete');
+        this.cdr.detectChanges();
+        this.getMyPosts();
+      },
     });
+  }
+
+  getMyPosts() {
+    console.log('get my posts called..');
+    this.loggedInUserPosts = this.posts.filter(
+      (x) => x.userName == this.loggedUserName
+    );
+    console.log('my posts,..', this.loggedInUserPosts);
+    this.postService.$postCount.next(this.loggedInUserPosts.length);
+    if (this.myPostFilter) {
+      console.log('inside mypostfilter if condition..');
+      this.posts = this.loggedInUserPosts;
+
+      console.log('my posts aree..', this.posts);
+      this.cdr.detectChanges();
+    }
   }
 
   onDeletePost(id: number) {
