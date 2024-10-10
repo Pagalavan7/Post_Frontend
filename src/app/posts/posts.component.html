@@ -25,7 +25,11 @@
         >
           Edit
         </button>
-        <button class="btn btn-danger" (click)="onDeletePost(post.id!)">
+        <button
+          *ngIf="loggedUserName == post.userName"
+          class="btn btn-danger"
+          (click)="onDeletePost(post.id!)"
+        >
           Delete
         </button>
       </div>
