@@ -31,9 +31,7 @@ export class NavigationComponent {
   @ViewChild('navbar') navbar: ElementRef | undefined;
   isUserSignedIn: boolean = false;
 
-  constructor() {
-    console.log('navigation component called');
-  }
+
 
   ngOnInit() {
     this.authService.userSignedIn$.subscribe((x) => {
@@ -42,17 +40,12 @@ export class NavigationComponent {
     });
     this.authService.$loggedInUser.subscribe({
       next: (x: LoggedInUserData | null) => {
-        console.log(
-          'inside nav component.. value received from auth service is',
-          x
-        );
         this.userName = x?.loggedInUserName;
         this.userEmail = x?.loggedInUserEmail;
       },
     });
 
     this.postService.$postCount.subscribe((x) => {
-      console.log('inside nav comp.. count is ', x);
       this.noOfPosts = x;
     });
   }

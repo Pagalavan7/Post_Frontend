@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
-import { map, tap } from 'rxjs';
+import { map, Observable, tap, throwError } from 'rxjs';
 
 export const AuthGuard = () => {
   const authService: AuthService = inject(AuthService);
@@ -15,3 +15,4 @@ export const AuthGuard = () => {
     })
   );
 };
+

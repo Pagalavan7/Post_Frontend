@@ -26,7 +26,6 @@ export class LoginComponent {
       error: (err) => {
         alert(err.error.error);
       },
-      // complete: () => console.log('login operation complete'),
     });
   }
 

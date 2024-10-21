@@ -12,19 +12,21 @@ export const AuthInterceptorService: HttpInterceptorFn = (
   req: HttpRequest<any>,
   next: HttpHandlerFn
 ) => {
-  console.log('interceptor called..');
   const authService = inject(AuthService);
-  const authToken = localStorage.getItem('token');
   const router = inject(Router);
+  const authToken = localStorage.getItem('token');
+
   if (authToken && authService.isTokenExpired()) {
     authService.logout();
     router.navigate(['/login']);
     return EMPTY;
-  } else {
+  } else if (authToken) {
     const bearerToken = `Bearer ${authToken}`;
     const modifiedReq = req.clone({
       headers: req.headers.append('Authorization', bearerToken),
     });
+
     return next(modifiedReq);
   }
+  return next(req);
 };

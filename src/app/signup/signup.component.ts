@@ -29,10 +29,8 @@ export class SignupComponent {
         this.router.navigate(['/login']);
       },
       error: (err) => {
-        console.log(err.error);
         alert(err.error.error);
-      },
-      complete: () => console.log('signup operation complete'),
+      }
     });
   }
 

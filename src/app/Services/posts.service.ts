@@ -9,15 +9,12 @@ import { Post } from '../Models/post.model';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, map, Subject, tap } from 'rxjs';
 import { AuthService } from './auth.service';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PostsService {
-  constructor() {
-    console.log('post service called..');
-  }
-
   posts: Post[] = [];
 
   totalPosts: number | undefined;
@@ -30,7 +27,7 @@ export class PostsService {
 
   $postCount = new BehaviorSubject<number>(0);
 
-  postsAPI = 'http://localhost:3000/api/posts/';
+  apiBaseUrl = `${environment.apiBaseUrl}/posts/`;
 
   // createPost(postData: Post) {
   //   this.posts.push(postData);
@@ -42,27 +39,25 @@ export class PostsService {
   // }
 
   getAllPosts() {
-    return this.http.get<Post[]>(`${this.postsAPI}get-all-posts`);
+    return this.http.get<Post[]>(`${this.apiBaseUrl}get-all-posts`);
   }
   getPostById(postId: number) {
-    return this.http.get<Post>(`${this.postsAPI}get-post/${postId}`);
+    return this.http.get<Post>(`${this.apiBaseUrl}get-post/${postId}`);
   }
 
   editPost(patchData: Post) {
-    console.log('edit post service called..');
-    console.log('Patch data', patchData);
     return this.http.patch(
-      `${this.postsAPI}edit-post/${patchData.id!}`,
+      `${this.apiBaseUrl}edit-post/${patchData.id!}`,
       patchData
     );
   }
   deleteAllPosts() {
-    return this.http.delete(`${this.postsAPI}delete-all-posts`);
+    return this.http.delete(`${this.apiBaseUrl}delete-all-posts`);
   }
   deletePost(id: number) {
-    return this.http.delete(`${this.postsAPI}delete-post/${id}`);
+    return this.http.delete(`${this.apiBaseUrl}delete-post/${id}`);
   }
   post(data: any) {
-    return this.http.post(`${this.postsAPI}save-post`, data);
+    return this.http.post(`${this.apiBaseUrl}save-post`, data);
   }
 }

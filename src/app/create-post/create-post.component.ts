@@ -27,19 +27,16 @@ export class CreatePostComponent {
   ) {}
 
   ngOnInit() {
-    console.log('im called ');
     this.route.paramMap.subscribe((params) => {
       if (params.get('id')) {
         this.isEditMode = true;
         this.postId = +params.get('id')!;
-        console.log(this.postId);
         this.loadPost(this.postId);
       }
     });
   }
 
   loadPost(postId: number) {
-    console.log('loadPost called');
     this.postService.getPostById(postId).subscribe({
       next: (data: Post) => {
         this.postData = data;
@@ -69,9 +66,6 @@ export class CreatePostComponent {
 
   post(data: Post) {
     this.postService.post(data).subscribe({
-      next: (data) => {
-        console.log('posted result', data);
-      },
       error: (err) => {
         console.log(err);
       },
@@ -81,12 +75,10 @@ export class CreatePostComponent {
   onSave() {
     const now = new Date();
 
-    // Extract day, month, and year
-    const day = String(now.getDate()).padStart(2, '0'); // Pad single digits with leading zero
-    const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are 0-based, so add 1
+    const day = String(now.getDate()).padStart(2, '0');
+    const month = String(now.getMonth() + 1).padStart(2, '0');
     const year = now.getFullYear();
 
-    // Format the date as DD/MM/YYYY
     const modifiedOn = `${day}/${month}/${year}`;
     const patchData = {
       id: this.postId,
@@ -94,9 +86,7 @@ export class CreatePostComponent {
       modifiedOn: modifiedOn,
     };
     this.postService.editPost(patchData).subscribe({
-      next: (data) => console.log(data),
       error: (err) => console.log(err),
-      complete: () => console.log('patch complete'),
     });
     this.router.navigate(['/posts']);
   }
