@@ -67,6 +67,8 @@ h2 {
 .footer_details {
   text-align: center;
   border-bottom: 1px solid white;
+  border-left: 1px solid white;
+  border-right: 1px solid white;
 }
 .footer_title + .footer_title,
 .footer_details + .footer_details {
