@@ -1,14 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LoggedInUserData, User } from '../Models/user.model';
-import {
-  BehaviorSubject,
-  catchError,
-  ReplaySubject,
-  Subject,
-  tap,
-  throwError,
-} from 'rxjs';
+import { BehaviorSubject, ReplaySubject, tap } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
 import { environment } from '../../environments/environment';
 
@@ -50,10 +43,6 @@ export class AuthService {
           this.isTokenExpired();
           this.$loggedInUser.next(this.loggedInUser);
         })
-        // catchError((err) => {
-        //   console.log(err);
-        //   return throwError(() => err);
-        // })
       );
   }
 

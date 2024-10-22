@@ -59,15 +59,19 @@ export class CreatePostComponent {
     // Format the date as DD/MM/YYYY
     const createdOn = `${day}/${month}/${year}`;
     let postData: Post = this.postForm.value;
+    console.log('post data is ', postData);
     postData = { ...postData, createdOn: createdOn };
     this.post(postData);
-    this.router.navigate(['/posts']);
   }
 
   post(data: Post) {
     this.postService.post(data).subscribe({
       error: (err) => {
         console.log(err);
+      },
+      complete: () => {
+        alert('Post created successfully');
+        this.router.navigate(['/posts']);
       },
     });
   }
@@ -87,7 +91,10 @@ export class CreatePostComponent {
     };
     this.postService.editPost(patchData).subscribe({
       error: (err) => console.log(err),
+      complete: () => {
+        alert('Post saved successfully');
+        this.router.navigate(['/posts']);
+      },
     });
-    this.router.navigate(['/posts']);
   }
 }
