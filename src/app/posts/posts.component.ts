@@ -15,7 +15,7 @@ import {
 } from '@angular/router';
 import { AuthService } from '../Services/auth.service';
 import { LoggedInUserData } from '../Models/user.model';
-import { LoaderService } from '../loader.service';
+import { LoaderService } from '../Services/loader.service';
 
 @Component({
   selector: 'app-posts',

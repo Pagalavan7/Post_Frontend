@@ -34,3 +34,23 @@ p {
   border-radius: 4px;
   padding: 0.5em;
 }
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-footer-item > button + button {
+  margin-left: 0.5em;
+}
+
+@media (max-width: 576px) {
+  .card-footer {
+    display: block;
+  }
+  .post-modify {
+    display: flex;
+    margin-top: 0.5em;
+    justify-content: end;
+  }
+}

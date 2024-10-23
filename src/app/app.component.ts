@@ -5,7 +5,7 @@ import {
 } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavigationComponent } from './navigation/navigation.component';
-import { LoaderService } from './loader.service';
+import { LoaderService } from './Services/loader.service';
 import { LoaderComponent } from './loader/loader.component';
 import { CommonModule } from '@angular/common';
 

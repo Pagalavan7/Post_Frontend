@@ -10,7 +10,7 @@ import { environment } from '../../environments/environment';
 })
 export class AuthService {
   loggedInUser: LoggedInUserData | null = null;
-
+  appStart: boolean = true;
   $loggedInUser = new ReplaySubject<LoggedInUserData | null>(1);
 
   constructor(private http: HttpClient) {
@@ -24,6 +24,12 @@ export class AuthService {
   apiBaseUrl: string = environment.apiBaseUrl;
 
   signUp(data: User) {
+    if (this.appStart) {
+      alert(
+        'If its your first request, it may take upto a minute. Please hold.'
+      );
+      this.updateStartApp();
+    }
     return this.http.post<{ message: string; error: string }>(
       `${this.apiBaseUrl}/auth/signup`,
       data
@@ -31,6 +37,12 @@ export class AuthService {
   }
 
   login(data: User) {
+    if (this.appStart) {
+      alert(
+        'If its your first request, it may take upto a minute. Please hold.'
+      );
+      this.updateStartApp();
+    }
     return this.http
       .post<{ message: string; error?: string; token?: string }>(
         `${this.apiBaseUrl}/auth/login`,
@@ -82,5 +94,9 @@ export class AuthService {
       console.log(err);
       return true;
     }
+  }
+
+  updateStartApp() {
+    this.appStart = false;
   }
 }

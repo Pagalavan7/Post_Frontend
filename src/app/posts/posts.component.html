@@ -11,16 +11,16 @@
         {{ post.body }}
       </p>
     </div>
-    <div class="card-footer d-flex justify-content-between align-items-center">
-      <div class="post-info">
+    <div class="card-footer">
+      <div class="card-footer-item post-info">
         <span>{{ post.userName }}</span>
         <span> on {{ post.createdOn }}</span>
       </div>
 
-      <div>
+      <div class="post-modify card-footer-item">
         <button
           *ngIf="loggedUserName == post.userName"
-          class="edit btn me-2"
+          class="edit btn"
           (click)="onEditPost(post.id!)"
         >
           Edit
