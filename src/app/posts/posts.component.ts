@@ -15,6 +15,7 @@ import {
 } from '@angular/router';
 import { AuthService } from '../Services/auth.service';
 import { LoggedInUserData } from '../Models/user.model';
+import { LoaderService } from '../loader.service';
 
 @Component({
   selector: 'app-posts',
@@ -30,18 +31,17 @@ export class PostsComponent {
   loggedUserName: string | undefined;
   totalPosts: number = 0;
   myPostFilter = false;
-
+  isLoading: boolean = false;
   constructor(
     private cdr: ChangeDetectorRef,
     private postService: PostsService,
     private authService: AuthService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private loader: LoaderService
   ) {
-
     this.authService.$loggedInUser.subscribe({
       next: (userLoggedInData: LoggedInUserData | null) => {
-
         this.loggedUserName = userLoggedInData?.loggedInUserName;
       },
     });
@@ -49,16 +49,18 @@ export class PostsComponent {
 
   ngOnInit() {
     const data = this.route.snapshot.url.map((x) => x.path);
-
+    this.loader.$loaderStatus.subscribe((x) => {
+      this.isLoading = x;
+      this.cdr.detectChanges();
+    });
     if (data[0].includes('my-posts')) {
-
       this.myPostFilter = true;
     }
     this.getAllPosts();
   }
 
   getAllPosts() {
-
+    this.loader.showLoader();
     this.postService.getAllPosts().subscribe({
       next: (data) => {
         this.posts = [];
@@ -71,13 +73,13 @@ export class PostsComponent {
       },
       complete: () => {
         this.cdr.detectChanges();
+        this.loader.hideLoader();
         this.getMyPosts();
       },
     });
   }
 
   getMyPosts() {
-
     this.loggedInUserPosts = this.posts.filter(
       (x) => x.userName == this.loggedUserName
     );
@@ -90,24 +92,25 @@ export class PostsComponent {
   }
 
   onDeletePost(id: number) {
-    this.postService.deletePost(id).subscribe({
-     
-      error: (err) => {
-        console.log(err);
-      },
-      complete: () => this.getAllPosts(),
-    });
+    const res = confirm('Are you sure to delete this post?');
+    if (res) {
+      this.postService.deletePost(id).subscribe({
+        error: (err) => {
+          console.log(err);
+        },
+        complete: () => {
+          this.getAllPosts();
+        },
+      });
+    }
   }
 
   deleteAllPosts() {
-
     this.posts = [];
     this.postService.deleteAllPosts().subscribe({
-
       error: (err) => {
         console.log(err);
       },
-
     });
   }
 

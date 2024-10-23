@@ -1,5 +1,5 @@
 <div class="container mt-3">
-  <div class="d-flex justify-content-end mb-3">
+  <div class="d-flex justify-content-end mb-3" *ngIf="!isLoading">
     <button class="create-post btn">
       <a routerLink="/create-post">New Post</a>
     </button>
