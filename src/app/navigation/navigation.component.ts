@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   inject,
+  Renderer2,
   ViewChild,
 } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
@@ -19,19 +20,20 @@ import { LoggedInUserData } from '../Models/user.model';
   styleUrl: './navigation.component.css',
 })
 export class NavigationComponent {
+  constructor(private renderer: Renderer2, private element: ElementRef) {}
+
   showProfile = false;
   userName: string | undefined;
   userEmail: string | undefined;
   noOfPosts = 0;
+  closeMenuBar = false;
   authService: AuthService = inject(AuthService);
   router: Router = inject(Router);
   postService: PostsService = inject(PostsService);
   cdr: ChangeDetectorRef = inject(ChangeDetectorRef);
 
-  @ViewChild('navbar') navbar: ElementRef | undefined;
+  // @ViewChild('navbar') navbar: ElementRef | undefined;
   isUserSignedIn: boolean = false;
-
-
 
   ngOnInit() {
     this.authService.userSignedIn$.subscribe((x) => {
@@ -66,12 +68,17 @@ export class NavigationComponent {
     this.showProfile = !this.showProfile;
   }
 
-  navbarCollapse() {
-    if (this.navbar) {
-      const navbarCollapse = this.navbar.nativeElement;
-      if (navbarCollapse.classList.contains('show')) {
-        navbarCollapse.classList.remove('show');
-      }
-    }
+  closeNavbar() {
+    const mobile = this.element.nativeElement.querySelector('.mobile');
+    this.renderer.setStyle(mobile, 'display', 'none');
+  }
+
+  onMenu() {
+    const navbar = this.element.nativeElement.querySelector('#menu-icon');
+    const mobile = this.element.nativeElement.querySelector('.mobile');
+    const mobilecurrentDisplay = mobile.style.display;
+    if (mobilecurrentDisplay === 'none') {
+      this.renderer.setStyle(mobile, 'display', 'block');
+    } else this.renderer.setStyle(mobile, 'display', 'none');
   }
 }
