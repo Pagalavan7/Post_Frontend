@@ -8,7 +8,7 @@
       <div class="navbar">
         <ul class="nav-list">
           <li class="nav-item">
-            <div class="profile">
+            <div class="profile" *ngIf="isUserSignedIn">
               <div class="logged_in" *ngIf="isUserSignedIn; else logout">
                 <img
                   (click)="onProfile()"
@@ -149,7 +149,7 @@
 
     <!-- code to profile details.. -->
 
-    <div *ngIf="showProfile" class="profile_details" clickOutside>
+    <div *ngIf="showProfile" class="profile_details">
       <div class="user">
         <div>
           <img

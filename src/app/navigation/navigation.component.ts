@@ -2,6 +2,7 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
+  HostListener,
   inject,
   Renderer2,
   ViewChild,
@@ -72,11 +73,28 @@ export class NavigationComponent {
     const mobile = this.element.nativeElement.querySelector('.mobile');
     this.renderer.setStyle(mobile, 'display', 'none');
   }
+  ngAfterViewInit() {}
+  @HostListener('document:click', ['$event'])
+  handleClickOutside(event: Event) {
+    const mobile = this.element.nativeElement.querySelector('.mobile');
+    const navbar = this.element.nativeElement.querySelector('#menu-icon');
+    const profile_details =
+      this.element.nativeElement.querySelector('.profile_details');
+    if (navbar.contains(event.target)) return;
+    const mobilecurrentDisplay = mobile.style.display;
+    if (profile_details)
+      this.renderer.setStyle(profile_details, 'display', 'none');
+
+    if (mobilecurrentDisplay === 'block') {
+      this.renderer.setStyle(mobile, 'display', 'none');
+    }
+  }
 
   onMenu() {
     const navbar = this.element.nativeElement.querySelector('#menu-icon');
     const mobile = this.element.nativeElement.querySelector('.mobile');
     const mobilecurrentDisplay = mobile.style.display;
+
     if (mobilecurrentDisplay === 'none') {
       this.renderer.setStyle(mobile, 'display', 'block');
     } else this.renderer.setStyle(mobile, 'display', 'none');
