@@ -20,7 +20,7 @@ import { LoaderService } from '../Services/loader.service';
 @Component({
   selector: 'app-posts',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive],
+  imports: [CommonModule, RouterLink],
   templateUrl: './posts.component.html',
   styleUrl: './posts.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,4 +1,4 @@
-<div class="user-form mt-4">
+<div class="user-form mt-4" *ngIf="!isLoading">
   <form #loginUser="ngForm">
     <div>
       <label for="email">Email:</label>
